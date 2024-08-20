@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: inventory-service
+  data:
+    mongodb:
+      uri: ${ECOMMERCE_INVENTORY_DB_URI:mongodb://root:123456@localhost:27018/ecommerce-inventory?authSource=admin}
+
+server:
+  port: 8085
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs

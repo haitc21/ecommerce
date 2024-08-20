@@ -15,3 +15,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+#docker volume
+docker/data/mongo/*
+docker/data/mysql/*
+docker/keycloak/realms/^

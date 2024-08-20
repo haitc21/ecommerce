@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: product-service
+  data:
+    mongodb:
+      uri: ${ECOMMERCE_PRODUCT_DB_URI:mongodb://root:123456@localhost:27018/ecommerce-product?authSource=admin}
+
+server:
+  port: 8081
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
