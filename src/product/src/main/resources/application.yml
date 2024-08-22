@@ -1,15 +1,36 @@
 spring:
   application:
-    name: product-service
+    name: ecommerce-product
   data:
     mongodb:
       uri: ${ECOMMERCE_PRODUCT_DB_URI:mongodb://root:123456@localhost:27018/ecommerce-product?authSource=admin}
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        service-name: ecommerce-product
+        health-check-path: /actuator/health
+        health-check-interval: 10s
 
 server:
-  port: 8081
+  port: 8082
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
   api-docs:
     path: /api-docs
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

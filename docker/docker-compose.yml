@@ -78,7 +78,7 @@ services:
     depends_on:
       - broker
     ports:
-      - "8185:8081"
+      - "8182:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: "broker:29092"
@@ -88,7 +88,7 @@ services:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
     ports:
-      - "8186:8080"
+      - "8183:8080"
     depends_on:
       - broker
       - schema-registry
@@ -97,3 +97,17 @@ services:
       KAFKA_CLUSTERS_BOOTSTRAPSERVERS: broker:29092
       KAFKA_CLUSTERS_SCHEMAREGISTRY: http://schema-registry:8081
       DYNAMIC_CONFIG_ENABLED: "true"
+
+#   consul:
+#     image: docker.io/bitnami/consul:1.18.0
+#     ports:
+#       - 8300:8300
+#       - 8500:8500
+#       - 8600:8600
+#     command: consul agent -dev -ui -client 0.0.0.0 -log-level=INFO
+#     networks:
+#       - my-network
+
+# networks:
+#   my-network:
+#     driver: bridge

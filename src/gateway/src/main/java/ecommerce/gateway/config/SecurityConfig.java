@@ -1,6 +1,7 @@
 package ecommerce.gateway.config;
 
 import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -14,7 +15,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     private final String[] freeRequestUrls = {"/swagger-ui.html", "swagger-ui/**", "/v3/api-docs/**",
-        "/swagger-resources/**", "/api-docs/**", "/aggregate/**"};
+        "/swagger-resources/**", "/api-docs/**", "/aggregate/**", "/actuator/health"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

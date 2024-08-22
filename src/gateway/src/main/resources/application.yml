@@ -1,11 +1,19 @@
 spring:
   application:
-    name: gateway
+    name: ecommerce-gateway
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8181/realms/ecommerce-realm}
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8181/realms/ecommerce}
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        service-name: ecommerce-gateway
+        health-check-interval: 10s
 
 springdoc:
   swagger-ui:

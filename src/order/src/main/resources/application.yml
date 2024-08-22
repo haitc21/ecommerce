@@ -1,9 +1,19 @@
 spring:
   application:
-    name: order-service
+    name: ecommerce-order
   data:
     mongodb:
       uri: ${ECOMMERCE_ORDER_DB_URI:mongodb://root:123456@localhost:27018/ecommerce-order?authSource=admin}
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        service-name: ecommerce-order
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+
 
 server:
   port: 8083
