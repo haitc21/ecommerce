@@ -11,9 +11,16 @@ spring:
       host: localhost
       port: 8500
       discovery:
-        enabled: true
+        healthCheckPath: /actuator/health
+        instanceId: gateway:${spring.application.instance-id:${random.value}}
         service-name: ecommerce-gateway
-        health-check-interval: 10s
+        prefer-ip-address: true
+        tags:
+          - profile=${spring.profiles.active}
+          - version=#project.version#
+          - git-version=${git.commit.id.describe:}
+          - git-commit=${git.commit.id.abbrev:}
+          - git-branch=${git.branch:}
 
 springdoc:
   swagger-ui:
