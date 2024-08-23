@@ -1,9 +1,7 @@
 package ecommerce.product.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,31 +12,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "product")
+@Document(collection = "category")
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product extends AbstractAuditingEntity<String> {
+public class Category extends AbstractAuditingEntity<String> {
 
     @Id
     private String id;
     @NotNull
-    private String title;
-    private String description;
-    private Double price;
-    private Double discountedPrice;
-    private int discountPersent;
-    private int quantity;
-    private String brand;
-    private String color;
-    private String imageUrl;
-    private int numRatings;
-    private String categoryId;
-    private Set<Size> size = new HashSet<>();
+    @Indexed(unique = true)
+    private String name;
+    private int level;
     @DBRef
-    private Category category;
+    private Category parentCategory;
 
     @Override
     public String getId() {

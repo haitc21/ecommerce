@@ -1,7 +1,5 @@
 package ecommerce.product;
 
-import java.math.BigDecimal;
-
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +8,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 
 import ecommerce.product.dto.ProductRequestDto;
-
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
@@ -40,9 +37,8 @@ class ProductApplicationTests {
                 .log().all()
                 .statusCode(201)
                 .body("id", Matchers.notNullValue())
-                .body("name", Matchers.equalTo(productRequest.name()))
-                .body("description", Matchers.equalTo(productRequest.description()))
-                .body("price", Matchers.is(productRequest.price().intValueExact()));
+                .body("title", Matchers.equalTo(productRequest.getTitle()))
+                .body("description", Matchers.equalTo(productRequest.getDescription()));
     }
 
     @Test
@@ -58,7 +54,16 @@ class ProductApplicationTests {
     }
 
     private ProductRequestDto getProductRequest() {
-        return new ProductRequestDto("iPhone 13", "iPhone 13", BigDecimal.valueOf(1200));
+        return ProductRequestDto.builder()
+                .title("iPhone 13")
+                .description("iPhone 13")
+                .price(1200)
+                .discountedPrice(1000)
+                .discountPersent(30)
+                .quantity(100)
+                .brand("Apple")
+                .color("Yeallow")
+                .build();
     }
 
 }

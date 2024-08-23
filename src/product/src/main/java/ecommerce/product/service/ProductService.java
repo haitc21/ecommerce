@@ -2,37 +2,29 @@ package ecommerce.product.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
 import ecommerce.product.dto.ProductDto;
 import ecommerce.product.dto.ProductRequestDto;
-import ecommerce.product.entity.Product;
-import ecommerce.product.mapper.ProductMapper;
-import ecommerce.product.repository.ProductRepository;
+import ecommerce.product.exception.ProductException;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+public interface ProductService {
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class ProductService {
+    public ProductDto create(ProductRequestDto req) throws ProductException;
 
-    private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
+    public String delete(String productId) throws ProductException;
 
-    public ProductDto create(ProductRequestDto dto) {
-        Product product = productMapper.toProduct(dto);
-        productRepository.save(product);
-        log.info("Create product successfully");
-        return productMapper.toDto(product);
-    }
+    public ProductDto update(String id, ProductRequestDto dto) throws ProductException;
 
-    public List<ProductDto> getAll() {
-        return productRepository
-                .findAll()
-                .stream()
-                .map(productMapper::toDto)
-                .toList();
-    }
+    public List<ProductDto> getAll();
+
+    public ProductDto findById(String id) throws ProductException;
+
+    public List<ProductDto> findByCategory(String category);
+
+    public List<ProductDto> search(String query);
+
+    public Page<ProductDto> filter(String category, List<String> colors, List<String> sizes, Double minPrice, Double maxPrice, Integer minDiscount, String sort, Boolean isInStock, Integer pageNumber, Integer pageSize);
+
+    public List<ProductDto> recentlyAddedProduct();
 }
